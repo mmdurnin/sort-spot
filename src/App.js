@@ -1,26 +1,39 @@
+import axios from 'axios'
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import sortSpots from './util/spot-sort';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// var SPOTS = $.ajax({
+//   url: `https://airgara.ge/api/spots`,
+//   method: "GET"
+// })
+
+// let awaFunction = async () => {
+//   const spots = await axios.get(`https://airgara.ge/api/spots`);
+//   return spots;
+// };
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { spots: ""}
+  }
+  async componentDidMount() {
+    const response = await fetch(`https://airgara.ge/api/spots`)
+    const json = await response.json();
+    this.setState({ spots: json })
+    console.log(sortSpots(this.state.spots))
+  }
+
+  render() {
+
+    return (
+      <div className="App">
+        <header className="App-header">
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
